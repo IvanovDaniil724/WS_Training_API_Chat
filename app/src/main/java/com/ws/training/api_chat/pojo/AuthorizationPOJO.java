@@ -1,9 +1,12 @@
-package com.ws.training.api_chat;
+package com.ws.training.api_chat.pojo;
 
 import com.google.gson.annotations.SerializedName;
 
 public class AuthorizationPOJO
 {
+    @SerializedName("token")
+    public String token;
+
     @SerializedName("email")
     public String email;
 
@@ -24,5 +27,13 @@ public class AuthorizationPOJO
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
