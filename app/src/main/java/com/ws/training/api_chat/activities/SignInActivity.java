@@ -50,6 +50,9 @@ public class SignInActivity extends AppCompatActivity
                     public void onResponse(Call<AuthorizationPOJO> call, Response<AuthorizationPOJO> response)
                     {
                         token = response.body().getToken();
+
+                        Intent toMainScreen = new Intent(SignInActivity.this, MenuBottomNavigationActivity.class);
+                        startActivity(toMainScreen); finish();
                     }
 
                     public void onFailure(Call<AuthorizationPOJO> call, Throwable t)

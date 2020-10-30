@@ -51,6 +51,9 @@ public class SignUpActivity extends AppCompatActivity
                     public void onResponse(Call<RegistrationPOJO> call, Response<RegistrationPOJO> response)
                     {
                         SignInActivity.token = response.body().getToken();
+
+                        Intent toMainScreen = new Intent(SignUpActivity.this, MenuBottomNavigationActivity.class);
+                        startActivity(toMainScreen); finish();
                     }
 
                     public void onFailure(Call<RegistrationPOJO> call, Throwable t)
