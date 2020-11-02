@@ -7,19 +7,29 @@
 
     <fragment
         android:id="@+id/navigation_chats"
-        android:name="com.ws.training.api_chat.ui.users.UsersFragment"
+        android:name="com.ws.training.api_chat.ui.chats.ChatsFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_users" />
+        tools:layout="@layout/fragment_chats" >
+        <action
+            android:id="@+id/action_navigation_chats_to_createNewChatFragment"
+            app:destination="@id/createNewChatFragment"
+            app:popUpTo="@id/navigation_chats" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_users"
-        android:name="com.ws.training.api_chat.ui.chats.ChatsFragment"
+        android:name="com.ws.training.api_chat.ui.users.UsersFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_chats" />
+        tools:layout="@layout/fragment_users" />
 
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.ws.training.api_chat.ui.profile.ProfileFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/createNewChatFragment"
+        android:name="com.ws.training.api_chat.ui.CreateNewChatFragment"
+        android:label="fragment_create_new_chat"
+        tools:layout="@layout/fragment_create_new_chat" />
 </navigation>

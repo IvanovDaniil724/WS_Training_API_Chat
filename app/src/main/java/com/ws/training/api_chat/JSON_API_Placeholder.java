@@ -5,6 +5,8 @@ import com.ws.training.api_chat.pojo.AuthorizationPOJO;
 import com.ws.training.api_chat.pojo.ChatsPOJO;
 import com.ws.training.api_chat.pojo.RegistrationPOJO;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -21,5 +23,8 @@ public interface JSON_API_Placeholder
     Call<RegistrationPOJO> Registration(@Body RegistrationPOJO user);
 
     @GET("/chats/myChats")
-    Call<ChatsPOJO> getUserChats(@Header("Authorization") String token);
+    Call<List<ChatsPOJO>> getUserChats(@Header("Authorization") String token);
+
+    @POST("/chats/createChat")
+    Call<ChatsPOJO> createNewChat(@Header("Authorization") String token, @Body ChatsPOJO chat);
 }

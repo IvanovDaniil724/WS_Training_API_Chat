@@ -2,7 +2,9 @@ package com.ws.training.api_chat.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -20,7 +22,11 @@ import retrofit2.Response;
 public class SignInActivity extends AppCompatActivity
 {
     public static String token;
+    public static SharedPreferences settings;
     FullscreenOptimization fullscreenOptimization;
+
+    public static final String APP_PREFERENCES = "settings";
+    public static final String APP_PREFERENCES_TOKEN = "token";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -30,6 +36,17 @@ public class SignInActivity extends AppCompatActivity
 
         fullscreenOptimization = new FullscreenOptimization(getSupportActionBar(), getWindow().getDecorView());
         fullscreenOptimization.Optimization();
+
+        settings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+
+        if (settings.contains(APP_PREFERENCES_TOKEN))
+        {
+            RetrofitConnect.CreateErrorMessage(SignInActivity.this,
+                    "token", token);
+
+            Intent toMainScreen = new Intent(SignInActivity.this, MenuBottomNavigationActivity.class);
+            startActivity(toMainScreen); finish();
+        }
 
         new RetrofitConnect().CreateConnection();
         JSON_API_Placeholder service = RetrofitConnect.json_api_placeholder;
@@ -50,6 +67,9 @@ public class SignInActivity extends AppCompatActivity
                     public void onResponse(Call<AuthorizationPOJO> call, Response<AuthorizationPOJO> response)
                     {
                         token = response.body().getToken();
+
+                        SharedPreferences.Editor editor = settings.edit();
+                        editor.putString(APP_PREFERENCES_TOKEN, token); editor.apply();
 
                         Intent toMainScreen = new Intent(SignInActivity.this, MenuBottomNavigationActivity.class);
                         startActivity(toMainScreen); finish();

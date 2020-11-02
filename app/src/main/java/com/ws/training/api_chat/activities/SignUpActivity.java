@@ -3,6 +3,7 @@ package com.ws.training.api_chat.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -51,6 +52,9 @@ public class SignUpActivity extends AppCompatActivity
                     public void onResponse(Call<RegistrationPOJO> call, Response<RegistrationPOJO> response)
                     {
                         SignInActivity.token = response.body().getToken();
+
+                        SharedPreferences.Editor editor = SignInActivity.settings.edit();
+                        editor.putString(SignInActivity.APP_PREFERENCES_TOKEN, SignInActivity.token); editor.apply();
 
                         Intent toMainScreen = new Intent(SignUpActivity.this, MenuBottomNavigationActivity.class);
                         startActivity(toMainScreen); finish();
