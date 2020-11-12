@@ -47,33 +47,28 @@
         style="@android:style/Widget.Material.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/buttons_border"
         android:backgroundTint="@color/colorPrimaryDark"
         android:padding="8dp"
         android:text="Создать"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CreateNewChat_AddMembers_ScrollView" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <ScrollView
-        android:id="@+id/CreateNewChat_AddMembers_ScrollView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/CreateNewChat_AddMembers_RecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/buttons_border"
-        android:padding="8dp"
+        android:padding="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/CreateNewChat_Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CreateNewChat_AddMembers_TextView">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/CreateNewChat_AddMembers_RecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </ScrollView>
+        app:layout_constraintTop_toBottomOf="@+id/CreateNewChat_AddMembers_TextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

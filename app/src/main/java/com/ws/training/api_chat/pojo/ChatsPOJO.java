@@ -13,22 +13,19 @@ public class ChatsPOJO
     @SerializedName("chatIconName")
     public String chatIconName;
 
-    @SerializedName("userIds")
-    public int[] userIds;
+    @SerializedName("users")
+    public UsersPOJO[] users;
 
     public int getChatID() {
         return chatID;
     }
-
     public String getChatName() {
         return chatName;
     }
-
     public String getChatIconName() {
         return chatIconName;
     }
-
-    public int[] getUserIds() {
-        return userIds;
+    public UsersPOJO[] getUsers() {
+        return users;
     }
 }

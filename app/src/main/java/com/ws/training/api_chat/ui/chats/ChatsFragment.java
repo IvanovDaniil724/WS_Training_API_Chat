@@ -1,12 +1,14 @@
 package com.ws.training.api_chat.ui.chats;
 
 import android.app.DownloadManager;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -21,6 +23,7 @@ import com.ws.training.api_chat.activities.SignInActivity;
 import com.ws.training.api_chat.adapters.GetChatsAdapter;
 import com.ws.training.api_chat.common.RetrofitConnect;
 import com.ws.training.api_chat.pojo.ChatsPOJO;
+import com.ws.training.api_chat.pojo.UsersPOJO;
 import com.ws.training.api_chat.ui.CreateNewChatFragment;
 
 import java.util.List;
@@ -29,27 +32,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ChatsFragment extends Fragment {
+public class ChatsFragment extends Fragment
+{
 
-    //ChatsViewModel chatsViewModel;
     private List<ChatsPOJO> chats;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View root = inflater.inflate(R.layout.fragment_chats, container, false);
 
-        /*chatsViewModel =
-                ViewModelProviders.of(this).get(ChatsViewModel.class);
-
-        final TextView textView = root.findViewById(R.id.ChatNameTextView);
-        chatsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                //textView.setText(s);
-            }
-        });*/
-
-        new RetrofitConnect().CreateConnection();
         JSON_API_Placeholder service = RetrofitConnect.json_api_placeholder;
 
         Call<List<ChatsPOJO>> call = service.getUserChats(SignInActivity.token);
@@ -58,17 +49,12 @@ public class ChatsFragment extends Fragment {
             @Override
             public void onResponse(Call<List<ChatsPOJO>> call, Response<List<ChatsPOJO>> response)
             {
-                List<ChatsPOJO> chats_response = response.body();
+                chats = response.body();
 
-                if (chats_response != null)
-                {
-                    chats.addAll(chats_response);
-
-                    RecyclerView ChatNamesRecyclerView = root.findViewById(R.id.ChatsMenu_RecyclerView);
-                    GetChatsAdapter adapter = new GetChatsAdapter(root.getContext(), R.layout.fragment_chat_names, chats);
-                    ChatNamesRecyclerView.setAdapter(adapter);
-                    ChatNamesRecyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
-                }
+                RecyclerView ChatNamesRecyclerView = root.findViewById(R.id.ChatsMenu_RecyclerView);
+                GetChatsAdapter adapter = new GetChatsAdapter(root.getContext(), R.layout.fragment_chat_names, chats);
+                ChatNamesRecyclerView.setAdapter(adapter);
+                ChatNamesRecyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
             }
 
             public void onFailure(Call<List<ChatsPOJO>> call, Throwable t)
@@ -78,7 +64,7 @@ public class ChatsFragment extends Fragment {
             }
         });
 
-        final CreateNewChatFragment createNewChatFragment = new CreateNewChatFragment();
+        //final CreateNewChatFragment createNewChatFragment = new CreateNewChatFragment();
         root.findViewById(R.id.CreateNewChat_Button).setOnClickListener(new View.OnClickListener()
         {
             @Override

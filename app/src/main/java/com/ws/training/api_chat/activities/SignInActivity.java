@@ -1,8 +1,10 @@
 package com.ws.training.api_chat.activities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -22,11 +24,13 @@ import retrofit2.Response;
 public class SignInActivity extends AppCompatActivity
 {
     public static String token;
+    //public static int ownUserId;
     public static SharedPreferences settings;
     FullscreenOptimization fullscreenOptimization;
 
     public static final String APP_PREFERENCES = "settings";
     public static final String APP_PREFERENCES_TOKEN = "token";
+    //public static final String APP_PREFERENCES_OWN_USER_ID = "ownUserId";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -41,8 +45,8 @@ public class SignInActivity extends AppCompatActivity
 
         if (settings.contains(APP_PREFERENCES_TOKEN))
         {
-            RetrofitConnect.CreateErrorMessage(SignInActivity.this,
-                    "token", token);
+            token = settings.getString(APP_PREFERENCES_TOKEN, "");
+            //ownUserId = settings.getInt(APP_PREFERENCES_OWN_USER_ID, 0);
 
             Intent toMainScreen = new Intent(SignInActivity.this, MenuBottomNavigationActivity.class);
             startActivity(toMainScreen); finish();
@@ -66,13 +70,23 @@ public class SignInActivity extends AppCompatActivity
                     @Override
                     public void onResponse(Call<AuthorizationPOJO> call, Response<AuthorizationPOJO> response)
                     {
-                        token = response.body().getToken();
+                        if (response.code() == 200)
+                        {
+                            token = response.body().getToken();
 
-                        SharedPreferences.Editor editor = settings.edit();
-                        editor.putString(APP_PREFERENCES_TOKEN, token); editor.apply();
+                            SharedPreferences.Editor editor = settings.edit();
+                            editor.putString(APP_PREFERENCES_TOKEN, token); editor.apply();
 
-                        Intent toMainScreen = new Intent(SignInActivity.this, MenuBottomNavigationActivity.class);
-                        startActivity(toMainScreen); finish();
+                            Intent toMainScreen = new Intent(SignInActivity.this,
+                                    MenuBottomNavigationActivity.class);
+                            startActivity(toMainScreen); finish();
+                        }
+                        else
+                        {
+                            RetrofitConnect.CreateErrorMessage(SignInActivity.this,
+                                    "Ошибка авторизации", "Такого пользователя не существует " +
+                                    "или данные введены неверно");
+                        }
                     }
 
                     public void onFailure(Call<AuthorizationPOJO> call, Throwable t)

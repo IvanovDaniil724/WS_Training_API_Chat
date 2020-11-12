@@ -4,6 +4,7 @@ import com.ws.training.api_chat.activities.SignInActivity;
 import com.ws.training.api_chat.pojo.AuthorizationPOJO;
 import com.ws.training.api_chat.pojo.ChatsPOJO;
 import com.ws.training.api_chat.pojo.RegistrationPOJO;
+import com.ws.training.api_chat.pojo.UsersPOJO;
 
 import java.util.List;
 
@@ -24,6 +25,9 @@ public interface JSON_API_Placeholder
 
     @GET("/chats/myChats")
     Call<List<ChatsPOJO>> getUserChats(@Header("Authorization") String token);
+
+    @GET("/chats/allusers")
+    Call<List<UsersPOJO>> getAllUsers(@Header("Authorization") String token);
 
     @POST("/chats/createChat")
     Call<ChatsPOJO> createNewChat(@Header("Authorization") String token, @Body ChatsPOJO chat);
