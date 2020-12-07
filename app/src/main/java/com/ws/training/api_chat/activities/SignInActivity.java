@@ -24,12 +24,14 @@ import retrofit2.Response;
 public class SignInActivity extends AppCompatActivity
 {
     public static String token;
+    //public static int chatsCount;
     //public static int ownUserId;
     public static SharedPreferences settings;
     FullscreenOptimization fullscreenOptimization;
 
     public static final String APP_PREFERENCES = "settings";
     public static final String APP_PREFERENCES_TOKEN = "token";
+    //public static final String APP_PREFERENCES_CHATS_COUNT = "count";
     //public static final String APP_PREFERENCES_OWN_USER_ID = "ownUserId";
 
     @Override
@@ -46,6 +48,7 @@ public class SignInActivity extends AppCompatActivity
         if (settings.contains(APP_PREFERENCES_TOKEN))
         {
             token = settings.getString(APP_PREFERENCES_TOKEN, "");
+            //if (settings.contains(APP_PREFERENCES_CHATS_COUNT)) { chatsCount = settings.getInt(APP_PREFERENCES_CHATS_COUNT, 0); }
             //ownUserId = settings.getInt(APP_PREFERENCES_OWN_USER_ID, 0);
 
             Intent toMainScreen = new Intent(SignInActivity.this, MenuBottomNavigationActivity.class);

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/SelectUsers_LinearLayout"
+    android:id="@+id/SelectUsers_ConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -10,37 +10,39 @@
 
     <ImageView
         android:id="@+id/UserAvatar_ImageView"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_gravity="center|left"
-        android:layout_marginRight="4dp"
-        android:layout_weight="1"
-        android:scaleType="center"
-        tools:srcCompat="@drawable/buttons_border" />
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/UserName_TextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="1"
+        android:layout_marginStart="8dp"
         android:padding="8dp"
         android:text="TextView"
         android:textColor="@android:color/black"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/UserAvatar_ImageView"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ToggleButton
         android:id="@+id/SelectUser_ToggleButton"
-        android:layout_width="32dp"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center|right"
-        android:layout_marginLeft="4dp"
-        android:layout_weight="1"
         android:backgroundTint="@color/colorPrimaryDark"
+        android:checked="false"
         android:textAllCaps="false"
         android:textColor="@android:color/background_light"
         android:textOff="Add"
         android:textOn="Added"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
